@@ -1,5 +1,7 @@
 package com.scislak.database;
 
+import java.sql.Date;
+
 public class InsertIntoTable {
 	private static InsertIntoTable instance = null;
 	
@@ -21,11 +23,12 @@ public class InsertIntoTable {
 		LocalDataBase.addGuest(new Guest(first_name, last_name, nick));
 	}
 	
-	public static void insertSentence() {
-			
+	public static void insertSentence(int id_guest, String description, Date date) {
+		db.executeDataBase("INSERT INTO VOICE VALUES(NULL, '" + id_guest + "', '" + description + "', '" + date + "')");
+		LocalDataBase.addSentence(new Sentence(id_guest, description, date));
 	}
 
-	public static void insertComment() {
-		
+	public static void insertComment(int id_guest, int id_voice, String description, Date date) {
+		db.executeDataBase("INSERT INTO VOICE VALUES(NULL, '" + id_guest + "', '" + id_voice + "', '" + description + "', '" + date + "')");
 	}
 }

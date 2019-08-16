@@ -42,8 +42,7 @@ public class Forum extends HttpServlet{
 		
 		out.println("<form action = \"forum\" method = \"POST\">\r\n" + 
 				"		  <textarea rows=\"4\" cols=\"50\" name=\"comment\"></textarea>\n" +
-				"         <input type = \"submit\" value = \"Sentence\" />\r\n" + 
-				" <input type = \"hidden\" name = \"isVoice\" value=\"true\"" +
+				"         <input type = \"submit\" value = \"Submit\" />\r\n" + 
 				"    </form>");
 		
 		for(int i = 0; i < LocalDataBase.getSizeSentence(); i++) {
@@ -61,12 +60,6 @@ public class Forum extends HttpServlet{
 					out.println("</div><br>");
 				}
 			}
-			out.println("<form action = \"forum\" method = \"POST\">\r\n" + 
-					"		  <textarea rows=\"4\" cols=\"50\" name=\"comment\"></textarea>\n" +
-					"         <input type = \"submit\" value = \"Comment\" />\r\n" + 
-					" <input type = \"hidden\" name = \"isVoice\" value=\"false\"" +
-					" <input type = \"hidden\" name = \"numberSentence\" value=\"" + i+1 + "\"" +
-					"    </form>");
 			out.println("</div><br>");
 		}
 		out.println(GeneratorHTML.postHtml());
@@ -76,12 +69,7 @@ public class Forum extends HttpServlet{
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		String description = req.getParameter("comment");
 		
-		if(req.getParameter("isVoice").equals("true"))
-			InsertIntoTable.insertSentence(1, description, new Date(Calendar.getInstance().getTimeInMillis()));
-		else {
-			int numberOfSentence = Integer.valueOf(req.getParameter("numberSentence"));
-			InsertIntoTable.insertComment(1, numberOfSentence, description, new Date(Calendar.getInstance().getTimeInMillis()));
-		}
+		InsertIntoTable.insertSentence(1, description, new Date(Calendar.getInstance().getTimeInMillis()));
 		
 		doGet(req, res);
 	}
